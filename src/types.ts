@@ -4,7 +4,7 @@ export type RowType = "forest" | "car" | "truck";
 export type Row =
 | {
     type: "forest";
-    trees: {titleIndex: number; height: number}[];
+    trees: {tileIndex: number; height: number}[];
 }
 | {
     type: "car";
