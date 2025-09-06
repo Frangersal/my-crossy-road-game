@@ -17,7 +17,7 @@ export type Row =
 }
 | {
     type: "truck";
-    rirection: boolean;
+    direction: boolean;
     speed: number;
     vehicles: {
         initialTileIndex: number;

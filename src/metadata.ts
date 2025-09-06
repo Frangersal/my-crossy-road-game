@@ -9,11 +9,19 @@ export const rows: Row[]= [
     //         {tileIndex: 5, height: 50},
     //     ]
     // }
-    {
-        type:"car",
+
+    // {
+    //     type:"car",
+    //     direction: false,
+    //     speed:1,
+    //     vehicles: [{initialTileIndex: 2, color: 0xff0000}],
+    // },
+
+        {
+        type:"truck",
         direction: false,
         speed:1,
-        vehicles: [{initialTileIndex: 2, color: 0xff0000}],
+        vehicles: [{initialTileIndex: -4, color: 0x00CC00}],
 
     },
 ];
