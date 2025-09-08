@@ -1,6 +1,8 @@
 import * as THREE from "three";
+import { useRef } from "react";
 import { tileSize } from "../constants";
 import { Wheel } from "./Wheel";
+import  useVehicleAnimation  from "../hook/useVehicleAnimation";
 
 type Props = {
     rowIndex: number;
@@ -17,10 +19,13 @@ direction,
 speed,
 color,
 }: Props) {
+    const car = useRef<THREE.Group>(null);
+    useVehicleAnimation(car, direction, speed)
     return(
         <group 
             position-x={initialTileIndex * tileSize}
             rotation-z= { direction ? 0 : Math.PI}
+            ref={car}
         > 
         <mesh position = { [ 0, 0, 12]} castShadow receiveShadow>
             <boxGeometry args={[60, 30, 15]}/>

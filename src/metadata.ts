@@ -20,7 +20,7 @@ export const rows: Row[]= [
         {
         type:"truck",
         direction: false,
-        speed:1,
+        speed:100,
         vehicles: [{initialTileIndex: -4, color: 0x00CC00}],
 
     },
