@@ -1,6 +1,14 @@
-export function DirectionalLight() {
+import type React from "react";
+import * as THREE from "three";
+
+type Props = {
+    ref: React.RefObject<THREE.DirectionalLight | null>;
+};
+
+export function DirectionalLight({ref}: Props) {
     return (
         <directionalLight 
+            ref={ref}
             position={[-100, -100, 200]}
             up={[0,0,1]}
             castShadow
