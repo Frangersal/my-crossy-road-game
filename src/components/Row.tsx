@@ -2,6 +2,7 @@ import type { Row } from "../types";
 import { Forest } from "./Forest";
 import { CarLane } from "./CarLane";
 import { TruckLine } from "./TruckLine";
+import { RiverLine } from "./RiverLine";
 
 type Props = {
     rowIndex: number;
@@ -18,6 +19,9 @@ export function Row({rowIndex, rowData}: Props){
         }
         case "truck": {
             return <TruckLine rowIndex={rowIndex} rowData={rowData} />
+        }
+        case "river": {
+            return <RiverLine rowIndex={rowIndex} rowData={rowData} />
         }
     }
 }

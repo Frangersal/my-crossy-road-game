@@ -12,9 +12,10 @@ export function generateRows(amount:number): Row[] {
 }
 
 function generateRow(): Row {
-    const type: RowType = randomElement(["car","truck","forest"]);
+    const type: RowType = randomElement(["car","truck","forest","river"]);
     if (type === "car") return generateCarLaneMetadata();
     if (type === "truck") return generateTruckLaneMetadata();
+    if (type === "river") return generateLogLaneMetadata();
     return generateForesMetadata();
 }
 
@@ -92,4 +93,26 @@ function generateTruckLaneMetadata(): Row {
     });
     return { type: "truck" , direction, speed, vehicles };
 
+}
+
+function generateLogLaneMetadata(): Row {
+    const direction = randomElement([true, false]);
+    const speed = randomElement([60, 90, 120]);
+
+    const occupiedTiles = new Set<number>();
+
+    const logs = Array.from({length: 3}, () => {
+        let initialTileIndex;
+        do {
+            initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+        } while (occupiedTiles.has(initialTileIndex));
+        occupiedTiles.add(initialTileIndex - 1);
+        occupiedTiles.add(initialTileIndex);
+        occupiedTiles.add(initialTileIndex + 1);
+
+        const color: THREE.ColorRepresentation = 0x8B5A2B;
+        return { initialTileIndex, color };
+    });
+
+    return { type: "river", direction, speed, logs };
 }

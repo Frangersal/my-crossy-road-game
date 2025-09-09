@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export type RowType = "forest" | "car" | "truck";
+export type RowType = "forest" | "car" | "truck" | "river";
 export type Row =
 | {
     type: "forest";
@@ -23,6 +23,15 @@ export type Row =
         initialTileIndex: number;
         color: THREE.ColorRepresentation;
     }[];
-};
+}
+| {
+    type: "river";
+    direction: boolean;
+    speed: number;
+    logs: {
+        initialTileIndex: number;
+        color?: THREE.ColorRepresentation;
+    }[];
+}
 
 export type MoveDirection = "forward" | "backward" | "left" | "right";
