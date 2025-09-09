@@ -21,6 +21,8 @@ export function setRef(ref: THREE.Object3D){
 }
 
 export function queueMove(direction:MoveDirection) {
+    // No permitir nuevos movimientos si el juego ya terminó
+    if (useGameStore.getState().status === "over") return;
     const isValidMove = endsUpInValidPosition(
         { rowIndex: state.currentRow, tileIndex: state.currentTile },
         [...state.movesQueue, direction]
