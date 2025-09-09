@@ -13,12 +13,20 @@ export default function usePlayerAnimation(
         if(!state.movesQueue.length) return;
         const player = ref.current;
 
-        if(!moveClock.running) moveClock.start();
+        if(!moveClock.running) {
+            moveClock.start();
+            // capture the base Z of the visual child so hops are relative
+            try {
+                (player as any).userData.baseChildZ = player.children[0]?.position.z ?? 0;
+            } catch (e) {
+                (player as any).userData.baseChildZ = 0;
+            }
+        }
         
         const stepTime = 0.2;
         const progress = Math.min(1, moveClock.getElapsedTime()/stepTime);
 
-        setPosition(player, progress);
+    setPosition(player, progress);
         setRotation(player, progress);
 
         // Once a step has ended
@@ -26,6 +34,11 @@ export default function usePlayerAnimation(
         if(progress >= 1){
             stepCompleted();
             moveClock.stop();
+            // Ensure visual child Z is reset exactly to base after the step
+            try {
+                const base = (player as any).userData.baseChildZ ?? 0;
+                if (player.children[0]) player.children[0].position.z = base;
+            } catch (e) {}
         }
     } );
 }
@@ -44,7 +57,10 @@ function setPosition(player:THREE.Group, progress: number) {
 
     player.position.x = THREE.MathUtils.lerp(startX, endX, progress);
     player.position.y = THREE.MathUtils.lerp(startY, endY, progress);
-    player.children[0].position.z = Math.sin(progress * Math.PI) * 8;
+    const baseZ = (player as any).userData.baseChildZ ?? 0;
+    const jumpHeight = 6; // reduced amplitude to avoid penetrating ground
+    const z = baseZ + Math.sin(progress * Math.PI) * jumpHeight;
+    player.children[0].position.z = Math.max(baseZ, z);
     
 }
 
