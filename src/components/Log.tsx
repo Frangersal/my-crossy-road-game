@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { useRef } from "react";
 import { tileSize } from "../constants";
 import useVehicleAnimation from "../hook/useVehicleAnimation";
+import useLogTransport from "../hook/useLogTransport";
 
 type Props = {
     rowIndex: number;
@@ -14,6 +15,8 @@ type Props = {
 export function Log({rowIndex, initialTileIndex, direction, speed, color=0x8B5A2B}: Props){
     const log = useRef<THREE.Group>(null);
     useVehicleAnimation(log, direction, speed);
+    // transport the player when they stand on the log (not while jumping)
+    useLogTransport(log, rowIndex, direction, speed);
 
     return (
         <group
