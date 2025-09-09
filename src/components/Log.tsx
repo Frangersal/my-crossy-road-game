@@ -24,7 +24,7 @@ export function Log({rowIndex, initialTileIndex, direction, speed, color=0x8B5A2
             rotation-z={direction ? 0 : Math.PI}
             ref={log}
         >
-            <mesh position={[0,0,6]} castShadow receiveShadow>
+            <mesh position={[0,0,0.5]} castShadow receiveShadow>
                 <boxGeometry args={[tileSize * 3, tileSize * 0.8, 6]} />
                 <meshLambertMaterial color={color} flatShading />
             </mesh>

@@ -5,10 +5,53 @@ import { type Row, type RowType } from "../types"
 export function generateRows(amount:number): Row[] {
     const rows: Row[] = [];
     for (let i = 0; i < amount; i++) {
-        const rowData = generateRow();
+        let type: RowType;
+        // Probabilidad: bosque-carretera más común que bosque-río
+        if (i === 0) {
+            type = randomElement(["forest", "car", "truck"]);
+        } else {
+            const prev = rows[i-1]?.type;
+            // Si la anterior es bosque, puede ser río o carretera, pero carretera es más probable
+            if (prev === "forest") {
+                type = Math.random() < 0.7 ? randomElement(["car", "truck"]) : "river";
+            } else if (prev === "river") {
+                // Ahora es más probable que venga otro río (rio-rio), pero nunca río-carretera
+                type = Math.random() < 0.6 ? "river" : randomElement(["forest", "truck"]);
+            } else {
+                // Si la anterior es carretera o camión, solo bosque o carretera
+                type = randomElement(["forest", "car", "truck"]);
+            }
+        }
+
+        // Si el tipo es río, fuerza que la anterior y la siguiente sean bosque
+        if (type === "river") {
+            // Si la anterior no es bosque, cambia a bosque
+            if (rows[i-1]?.type !== "forest") {
+                rows[i-1] = generateForesMetadata();
+            }
+            // Generar mínimo dos ríos seguidos
+            let riverCount = 2;
+            while (riverCount > 0 && i < amount) {
+                rows.push(generateLogLaneMetadata());
+                riverCount--;
+                i++;
+            }
+            // Después de los ríos, fuerza bosque si no es la última fila
+            if (i < amount) {
+                rows.push(generateForesMetadata());
+                i++;
+            }
+            continue;
+        }
+
+        let rowData: Row;
+        if (type === "car") rowData = generateCarLaneMetadata();
+        else if (type === "truck") rowData = generateTruckLaneMetadata();
+        else rowData = generateForesMetadata();
+
         rows.push(rowData);
     }
-    return rows;    
+    return rows;
 }
 
 function generateRow(): Row {
