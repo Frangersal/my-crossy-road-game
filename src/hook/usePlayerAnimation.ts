@@ -38,7 +38,8 @@ function setPosition(player:THREE.Group, progress: number) {
 
     if (state.movesQueue[0] === "left" ) endX -= tileSize;
     if (state.movesQueue[0] === "right" ) endX += tileSize;
-    if (state.movesQueue[0] === "forward" ) endY = tileSize;
+    // CORRECCIÓN: movimiento hacia adelante debe ser relativo al inicio
+    if (state.movesQueue[0] === "forward" ) endY = startY + tileSize;
     if (state.movesQueue[0] === "backward" ) endY -= tileSize;
 
     player.position.x = THREE.MathUtils.lerp(startX, endX, progress);

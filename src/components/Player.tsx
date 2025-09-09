@@ -23,7 +23,7 @@ export function Player () {
 
         //Set the player reference in the store
         setRef(player.current)
-    });
+    }, [camera]); // run once when camera is available
 
     return(
         <Bounds fit clip observe margin={10}>
