@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import usePlayerAnimation from "../hook/usePlayerAnimation";
 import { DirectionalLight } from "./DirectionalLight";
+import { setRef } from "../stores/player";
 
 export function Player () {
     const player = useRef<THREE.Group>(null);
@@ -19,6 +20,9 @@ export function Player () {
         //Attach the camera to the player
         player.current.add(camera);
         lightRef.current.target = player.current;
+
+        //Set the player reference in the store
+        setRef(player.current)
     });
 
     return(

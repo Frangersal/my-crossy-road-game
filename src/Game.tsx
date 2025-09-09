@@ -4,6 +4,7 @@ import { Map } from "./components/Map";
 import { Controls } from "./components/Controls";
 import "./Game.css"
 import { Score } from "./components/Score";
+import { Result } from "./components/Result";
 
 
 export default function Game() {
@@ -15,6 +16,7 @@ export default function Game() {
             </Scene>
             <Score />
             <Controls />
+            <Result />
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { tileSize } from "../constants";
 import { Wheel } from "./Wheel";
 import  useVehicleAnimation  from "../hook/useVehicleAnimation";
+import useHitDetection from "../hook/useHitDetection";
 
 type Props = {
     rowIndex: number;
@@ -20,7 +21,8 @@ speed,
 color,
 }: Props) {
     const car = useRef<THREE.Group>(null);
-    useVehicleAnimation(car, direction, speed)
+    useVehicleAnimation(car, direction, speed);
+    useHitDetection(car, rowIndex);
     return(
         <group 
             position-x={initialTileIndex * tileSize}
