@@ -54,13 +54,13 @@ export function generateRows(amount:number): Row[] {
     return rows;
 }
 
-function generateRow(): Row {
-    const type: RowType = randomElement(["car","truck","forest","river"]);
-    if (type === "car") return generateCarLaneMetadata();
-    if (type === "truck") return generateTruckLaneMetadata();
-    if (type === "river") return generateLogLaneMetadata();
-    return generateForesMetadata();
-}
+// function generateRow(): Row {
+//     const type: RowType = randomElement(["car","truck","forest","river"]);
+//     if (type === "car") return generateCarLaneMetadata();
+//     if (type === "truck") return generateTruckLaneMetadata();
+//     if (type === "river") return generateLogLaneMetadata();
+//     return generateForesMetadata();
+// }
 
 function randomElement<T>(array:T[]):T {
     return array[Math.floor(Math.random() * array.length)];

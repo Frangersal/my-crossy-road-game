@@ -7,7 +7,8 @@ export default function useVehicleAnimation(
     direction: boolean,
     speed: number
 ) {
-    useFrame((state, delta)=>{
+    // useFrame((state, delta)=>{
+    useFrame((_, delta)=>{
         if (!ref.current) return;
         const vehicle = ref.current;
         

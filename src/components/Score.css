@@ -2,7 +2,12 @@
     position: absolute;
     top: 20px;
     left: 20px;
-
-    font-size: 1em;
-    color: white;
+    font-size: 1.2em;
+    color: #111;
+    background: #fff;
+    border-radius: 0px;
+    padding: 8px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-weight: bold;
+    border: 1px solid #ddd;
 }

@@ -17,7 +17,7 @@ const useStore = create<StoreState>((set) => ({
     updateScore: (rowIndex: number) =>{
         // Do not update score if game is already over
         if (useStore.getState().status === "over") return;
-        set((state) => ({score:Math.max(rowIndex, state.score) }));
+        set((state) => ({score: Math.max(rowIndex * 100, state.score) }));
     },
     endGame: () => {
         set({status: "over"});
