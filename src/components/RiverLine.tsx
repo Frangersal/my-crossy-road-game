@@ -23,20 +23,21 @@ export function RiverLine({rowIndex, rowData}: Props){
         // Only consider drowning if player is exactly on this row
         if (playerState.currentRow !== rowIndex) return;
 
-        // If visual child is in the air (jumping), the player is invulnerable to water
+        // Invulnerable si está saltando
         try {
             const visualChildZ = playerState.ref.children[0]?.position.z ?? 0;
             const baseZ = (playerState.ref as any).userData.baseChildZ ?? 0;
             const EPS = 0.1;
-            if (visualChildZ > baseZ + EPS) return; // invulnerable while jumping
+            if (visualChildZ > baseZ + EPS) return; // invulnerable mientras salta
         } catch (e) {
-            // ignore errors and continue
+            // ignore errors and continuar
         }
 
+        // Solo considerar muerte si está en el río
         // Build player bounding box
         const playerBox = new THREE.Box3().setFromObject(playerState.ref);
 
-        // Check intersection against each log (children: 0 = water plane, logs start at 1)
+        // Verificar si está sobre un tronco
         const anyIntersecting = rowData.logs.some((_, i) => {
             const logObject = groupRef.current?.children[i + 1];
             if (!logObject) return false;
@@ -44,8 +45,16 @@ export function RiverLine({rowIndex, rowData}: Props){
             return playerBox.intersectsBox(box);
         });
 
+        // Solo muere si NO está sobre tronco y realmente toca el agua azul
         if (!anyIntersecting) {
-            endGame();
+            // El mesh del agua azul es el primer hijo del grupo
+            const waterMesh = groupRef.current?.children[0];
+            if (waterMesh) {
+                const waterBox = new THREE.Box3().setFromObject(waterMesh as THREE.Object3D);
+                if (playerBox.intersectsBox(waterBox)) {
+                    endGame();
+                }
+            }
         }
     });
 
