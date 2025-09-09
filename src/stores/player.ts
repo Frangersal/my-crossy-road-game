@@ -1,5 +1,7 @@
 import type { MoveDirection } from "../types";
 import { endsUpInValidPosition } from "../utilities/endsUpInValidPosition";
+import useMapStore from "./map";
+import useGameStore from "./game";
 
 export const state: {
     currentRow: number;
@@ -16,7 +18,7 @@ export function queueMove(direction:MoveDirection) {
         { rowIndex: state.currentRow, tileIndex: state.currentTile },
         [...state.movesQueue, direction]
     );
-    
+
     if (!isValidMove) return;
 
     state.movesQueue.push(direction);
@@ -30,4 +32,10 @@ export function stepCompleted() {
     if (direction === "left") state.currentTile -=1;  
     if (direction === "right") state.currentTile +=1;  
     
+    // Add new rows if the player is running out of them
+    if (state.currentRow === useMapStore.getState().rows.length - 10) {
+        useMapStore.getState().addRows();
+    }
+
+    useGameStore.getState().updateScore(state.currentRow);
 }
