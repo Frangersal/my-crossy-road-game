@@ -1,42 +1,142 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Quicksand:wght@400;600&display=swap');
+
+/* Layout principal: App ocupa 30vh. El componente Game debe ocupar 70vh. */
+:root{
+	--bg-1: #f1f6f8;
+	--accent: #0b1220;
+	--accent-2: #0b6b8c;
+	--panel: #ffeb38;
+	--panel-2: #71bfff;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html,body,#root{ height:100%; }
+body{
+	margin:0;
+	font-family: 'Quicksand', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+	background: linear-gradient(180deg,#eaf6f8 0%, #dff6fb 100%);
+	color: var(--accent);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-root{
+	height: 30vh;
+	min-height: 220px;
+	box-sizing: border-box;
+	padding: 18px;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+	gap:12px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.app-inner{
+	display:flex;
+	gap:18px;
+	align-items:stretch;
 }
 
-.card {
-  padding: 2em;
+.app-left{
+	flex:1 1 auto;
+	background: #94ff94;
+	border:8px solid var(--accent);
+	padding:14px 16px;
+	box-shadow:10px 10px 0 rgba(11, 18, 32, 0.5);
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
 }
 
-.read-the-docs {
-  color: #888;
+.app-title{
+	font-family: 'Orbitron', sans-serif;
+	font-size:28px;
+	margin:0 0 8px 0;
+	display:inline-block;
+	padding:6px 10px;
+	background: var(--panel);
+	border:6px solid var(--accent);
+	letter-spacing:1px;
+	box-shadow:5px 5px 0 rgba(11, 18, 32, 0.5);
 }
+
+.app-desc{
+	margin:0 0 8px 0;
+	font-size:14px;
+	color:#202329;
+}
+
+.app-credit{
+	margin:0;
+	font-size:13px;
+}
+.app-credit a{ color:var(--accent-2); text-decoration:underline; font-weight:600 }
+
+.app-right{
+	width:260px;
+	flex:0 0 260px;
+}
+
+.app-panel{
+	height:100%;
+	border:8px solid var(--accent);
+	background: var(--panel-2);
+	padding:12px;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	box-shadow:10px 10px 0 rgba(11, 18, 32, 0.5);
+}
+.panel-title{ margin:0 0 6px 0; font-weight:800; font-size:16px }
+.panel-text{ margin:0; font-size:13px }
+
+.app-footer{
+	display:flex;
+	align-items:center;
+	gap:12px;
+}
+
+.github-link{
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	width:40px;
+	height:40px;
+	border:4px solid var(--accent);
+	background:#fff;
+	color:var(--accent);
+	text-decoration:none;
+}
+.github-link svg{ display:block }
+.footer-text{ font-size:13px; color:#344047 }
+
+/* Imagen de fgsm en footer */
+.fgsm-icon{
+	display:block;
+	width:36px;
+	height:36px;
+	object-fit:cover;
+	border-radius:6px;
+	/* border:3px solid var(--accent); */
+}
+
+/* Responsive: apilar en pantallas pequeñas */
+@media (max-width:720px){
+	.app-inner{ flex-direction:column; }
+	.app-right{ width:100%; flex-basis:auto }
+	.app-root{ padding:12px }
+
+	/* En pantallas pequeñas dejar que el header crezca para contener todo el contenido */
+	.app-root{ height: auto; min-height: auto; }
+
+	/* Footer en flujo normal para evitar solapamientos */
+	.app-footer{ position: static; margin-top: 14px; }
+}
+
+/* Fix: asegurar que el footer no se superponga al panel en móviles */
+.app-root { position: relative; }
+.app-inner { z-index: 1; }
+.app-footer { position: relative; z-index: 2; margin-top: 8px; }
+
+@media (max-width:720px) {
+	.app-footer { margin-top: 12px; }
+	.app-panel { margin-bottom: 0; }
+}
+

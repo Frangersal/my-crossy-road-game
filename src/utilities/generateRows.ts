@@ -102,7 +102,7 @@ function generateCarLaneMetadata(): Row {
         occupiedTiles.add(initialTileIndex + 1);
 
         const color: THREE.ColorRepresentation = randomElement([
-            0xF83800, 0xbdb638, 0x00CC00,
+            0xF83800, 0xfff100, 0x00CC00,
         ]);
         return { initialTileIndex, color };
     });
@@ -130,7 +130,7 @@ function generateTruckLaneMetadata(): Row {
         occupiedTiles.add(initialTileIndex + 2);
 
         const color: THREE.ColorRepresentation = randomElement([
-            0xF83800, 0xbdb638, 0x00CC00, 
+            0xF83800, 0xfff100, 0x00CC00, 
         ]);
         return { initialTileIndex, color };
     });
